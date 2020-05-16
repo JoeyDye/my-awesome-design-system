@@ -1,19 +1,51 @@
-import React from 'react'
-import {
-  PrimaryButton,
-  SecondaryButton,
-  TertiaryButton,
-} from './components/Buttons'
-import { GlobalStyle } from './utils'
+import React, { useState } from 'react'
+import { ThemeProvider } from 'styled-components'
+import { SignUpModal, PrimaryButton } from './components'
+import { GlobalStyle, darkTheme, defaultTheme } from './utils'
 
 const App = () => {
+  const [theme, setTheme] = useState('defaultTheme')
+  const [showModal, setShowModal] = useState(false)
+
   return (
-    <div>
-      <PrimaryButton disabled>Submit</PrimaryButton>
-      <SecondaryButton disabled>Submit</SecondaryButton>
-      <TertiaryButton disabled>Submit</TertiaryButton>
-      <GlobalStyle />
-    </div>
+    <ThemeProvider theme={theme === 'darkTheme' ? darkTheme : defaultTheme}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'space-around',
+          background:
+            theme === 'darkTheme'
+              ? defaultTheme.primaryColor
+              : darkTheme.primaryColor,
+          width: '100vw',
+          height: '100vh',
+        }}
+      >
+        <div>
+          <button
+            style={{
+              margin: '0 16px 24px',
+              padding: '8px',
+              background: 'none',
+            }}
+            onClick={() =>
+              setTheme(prevState =>
+                prevState === 'defaultTheme' ? 'darkTheme' : 'defaultTheme'
+              )
+            }
+          >
+            Change theme
+          </button>
+          <PrimaryButton onClick={() => setShowModal(prevState => !prevState)}>
+            Show Modal
+          </PrimaryButton>
+        </div>
+        <SignUpModal showModal={showModal} setShowModal={setShowModal} />
+        <GlobalStyle />
+      </div>
+    </ThemeProvider>
   )
 }
 

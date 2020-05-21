@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@storybook/addon-a11y": "^5.3.18",
     "@storybook/addon-backgrounds": "^5.3.18",
     "@storybook/addon-contexts": "^5.3.18",
     "@testing-library/jest-dom": "^4.2.4",
